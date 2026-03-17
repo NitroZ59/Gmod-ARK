@@ -5,9 +5,8 @@
     <style>
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; font-family: 'Segoe UI', Roboto, sans-serif;
-            /* Un joli dégradé sombre au lieu d'une image */
-            background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
+            overflow: hidden; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle, #1a2a3a 0%, #050505 100%);
             color: white;
         }
 
@@ -16,32 +15,64 @@
             align-items: center; height: 100vh; text-align: center;
         }
 
+        /* Nom de la Team */
         h1 { 
-            font-size: 4.5em; 
+            font-size: 5em; 
             margin: 0; 
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(52, 152, 219, 0.5); 
+            letter-spacing: 8px;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(52, 152, 219, 0.8);
+            font-weight: 900;
         }
 
-        p { font-size: 1.2em; opacity: 0.7; margin-top: 10px; text-transform: uppercase; }
-
-        #mapdisplay { 
-            font-weight: bold; 
-            color: #3498db; 
-            margin-top: 30px; 
-            background: rgba(255,255,255,0.05);
-            padding: 10px 20px;
-            border-radius: 5px;
+        .subtitle { 
+            font-size: 1.2em; 
+            opacity: 0.6; 
+            margin-top: -10px; 
+            text-transform: uppercase; 
+            letter-spacing: 5px;
         }
 
-        /* Barre de chargement animée */
+        /* L'encadré de la Map (Simulation de l'original) */
+        .map-box {
+            margin-top: 40px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .map-image {
+            width: 320px;
+            height: 180px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        #map-name {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 8px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+        }
+
+        /* Barre de chargement */
         .loader-bar {
-            margin-top: 50px; width: 350px; height: 4px;
-            background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+            margin-top: 40px; width: 340px; height: 3px;
+            background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;
         }
         .progress {
             width: 100%; height: 100%; background: #3498db;
-            animation: loading 2.5s infinite ease-in-out;
+            animation: loading 2s infinite ease-in-out;
         }
         @keyframes loading {
             0% { transform: translateX(-100%); }
@@ -52,10 +83,15 @@
 <body>
 
     <div class="container">
-        <h1>MON SERVEUR</h1>
-        <p>Murder • Prop Hunt • Deathrun • Guess Who</p>
+        <div class="subtitle">BIENVENUE CHEZ</div>
+        <h1>ARKANGE FR</h1>
         
-        <div id="mapdisplay">Chargement des ressources...</div>
+        <div class="map-box">
+            <div class="map-image">
+                <span style="opacity: 0.3; font-size: 0.8em;">PREVISUALISATION...</span>
+            </div>
+            <div id="map-name">Chargement...</div>
+        </div>
         
         <div class="loader-bar">
             <div class="progress"></div>
@@ -70,7 +106,7 @@
         const params = new URLSearchParams(window.location.search);
         const mapname = params.get('mapname');
         if (mapname) {
-            document.getElementById('mapdisplay').innerText = "MAP : " + mapname.toUpperCase();
+            document.getElementById('map-name').innerText = mapname;
         }
     </script>
 
