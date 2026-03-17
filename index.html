@@ -5,7 +5,7 @@
     <style>
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; font-family: 'Segoe UI', Roboto, sans-serif;
             background: radial-gradient(circle, #1a2a3a 0%, #050505 100%);
             color: white;
         }
@@ -15,60 +15,53 @@
             align-items: center; height: 100vh; text-align: center;
         }
 
-        /* Nom de la Team */
+        /* En-tête Team */
+        .subtitle { font-size: 1.1em; opacity: 0.5; letter-spacing: 6px; margin-bottom: 5px; }
         h1 { 
-            font-size: 5em; 
+            font-size: 5.5em; 
             margin: 0; 
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             color: #ffffff;
-            text-shadow: 0 0 30px rgba(52, 152, 219, 0.8);
+            text-shadow: 0 0 35px rgba(52, 152, 219, 0.7);
             font-weight: 900;
         }
 
-        .subtitle { 
-            font-size: 1.2em; 
-            opacity: 0.6; 
-            margin-top: -10px; 
-            text-transform: uppercase; 
-            letter-spacing: 5px;
-        }
-
-        /* L'encadré de la Map (Simulation de l'original) */
-        .map-box {
-            margin-top: 40px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .map-image {
-            width: 320px;
-            height: 180px;
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(52, 152, 219, 0.3);
-        }
-
-        #map-name {
-            background: rgba(52, 152, 219, 0.2);
-            color: #3498db;
-            padding: 8px 0;
-            font-weight: bold;
-            text-transform: uppercase;
+        /* Infos Joueur (Nouveauté) */
+        .player-info {
+            margin-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.9em;
-            letter-spacing: 2px;
+            color: #3498db;
+            background: rgba(0,0,0,0.4);
+            padding: 5px 15px;
+            border-left: 3px solid #3498db;
+            text-transform: uppercase;
+        }
+
+        /* Encadré Map */
+        .map-box {
+            margin-top: 30px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .map-image {
+            width: 300px; height: 160px;
+            background: #111;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 2px; border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        #map-name {
+            background: rgba(52, 152, 219, 0.15);
+            color: #3498db; padding: 6px 0;
+            font-weight: bold; font-size: 0.8em; letter-spacing: 2px;
         }
 
         /* Barre de chargement */
         .loader-bar {
-            margin-top: 40px; width: 340px; height: 3px;
-            background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;
+            margin-top: 40px; width: 300px; height: 2px;
+            background: rgba(255,255,255,0.05); overflow: hidden;
         }
         .progress {
             width: 100%; height: 100%; background: #3498db;
@@ -86,16 +79,18 @@
         <div class="subtitle">BIENVENUE CHEZ</div>
         <h1>ARKANGE FR</h1>
         
+        <div class="player-info">
+            SESSION AUTHENTIFIÉE : <span id="player-id">VÉRIFICATION...</span>
+        </div>
+
         <div class="map-box">
             <div class="map-image">
-                <span style="opacity: 0.3; font-size: 0.8em;">PREVISUALISATION...</span>
+                <span style="opacity: 0.2; font-size: 0.7em;">SYNC SUR LA MAP...</span>
             </div>
-            <div id="map-name">Chargement...</div>
+            <div id="map-name">CHARGEMENT...</div>
         </div>
         
-        <div class="loader-bar">
-            <div class="progress"></div>
-        </div>
+        <div class="loader-bar"><div class="progress"></div></div>
     </div>
 
     <audio autoplay loop>
@@ -104,9 +99,17 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
+        
+        // Récupération de la Map
         const mapname = params.get('mapname');
-        if (mapname) {
-            document.getElementById('map-name').innerText = mapname;
+        if (mapname) { document.getElementById('map-name').innerText = mapname.toUpperCase(); }
+
+        // Récupération du SteamID
+        const steamid = params.get('steamid');
+        if (steamid && steamid !== "%s") { 
+            document.getElementById('player-id').innerText = steamid; 
+        } else {
+            document.getElementById('player-id').innerText = "UTILISATEUR LOCAL";
         }
     </script>
 
